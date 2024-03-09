@@ -1,16 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { PasswordProvider } from './Components/chakra/Passwordcontext';
-import { UsernameProvider } from './Components/chakra/UsernameContext';
-import { LoginProvider } from './Components/chakra/Login_SubmitContext'; // Import LoginProvider
+import { PasswordProvider } from './Components/LoginPage/Passwordcontext';
+import { UsernameProvider } from './Components/LoginPage/UsernameContext';
+import { LoginProvider } from './Components/LoginPage/Login_SubmitContext';
+import { VerificationProvider } from './Components/SignUpPage/Verfication'; 
+import { PhoneProvider } from './Components/SignUpPage/Validationnumber'; 
+import { SignupSubmitProvider } from './Components/SignUpPage/Signup_SubmitContext';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <PasswordProvider> {/* Wrap your component tree with PasswordProvider */}
-      <UsernameProvider> {/* Wrap your component tree with UsernameProvider */}
-        <LoginProvider> {/* Wrap your component tree with LoginProvider */}
-          <App />
+    <PasswordProvider>
+      <UsernameProvider>
+        <LoginProvider>
+          <VerificationProvider> {/* Wrap your component tree with VerificationProvider */}
+          <PhoneProvider>
+            <SignupSubmitProvider>
+            <App />
+            </SignupSubmitProvider>
+            </PhoneProvider>
+          </VerificationProvider>
         </LoginProvider>
       </UsernameProvider>
     </PasswordProvider>

@@ -8,6 +8,7 @@ function Button_chakra({ name }) {
   return (
     <Flex justify="center">
       <Button
+        backgroundColor={'#052c51'}
         size='md'
         height='48px'
         width='200px'
@@ -16,6 +17,7 @@ function Button_chakra({ name }) {
         mt={5}
         rounded={20}
         onClick={onsubmit}
+        colorScheme="whiteAlpha"
       >
         {name}
       </Button>

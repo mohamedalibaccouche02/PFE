@@ -1,16 +1,21 @@
+// App.js
 import React from 'react';
 import './App.css';
-import LoginPage from './Components/chakra/LoginPage';
-// import * as React from 'react'
-
-// 1. import `ChakraProvider` component
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LoginPage from './Components/LoginPage/LoginPage'; 
 import { ChakraProvider } from '@chakra-ui/react'
+import { SignUpPage } from './Components/SignUpPage/SignUpPage';
 
 function App() {
-  // 2. Wrap ChakraProvider at the root of your app
+  
   return (
     <ChakraProvider>
-      <LoginPage /> 
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />  
+          <Route path="/Signuppage" element={<SignUpPage />} />
+        </Routes>
+      </Router>
     </ChakraProvider>
   )
 } 

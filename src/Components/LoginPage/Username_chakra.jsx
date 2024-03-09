@@ -5,7 +5,7 @@ import { Input, InputGroup, InputRightElement, IconButton, Box, Text, Flex } fro
 import { LoginContext } from './Login_SubmitContext'; 
 
 function UsernameInput() {
-    const { password, setPassword, Username, setUsername, Message_user, setMessage_user } = useContext(LoginContext);
+    const {  setUsername, Message_user  } = useContext(LoginContext);
 
     return (
         <Flex flexDirection="column" alignItems="start"> {/* Use Flexbox with column direction and start-aligned items */}
