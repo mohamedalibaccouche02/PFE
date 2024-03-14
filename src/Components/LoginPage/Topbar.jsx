@@ -14,7 +14,7 @@ function Topbar() {
         </Link>
       </Box>
       <Box>
-        {/* Add your navigation links or components here */}
+       
       </Box>
       <Flex alignItems='center' justifyContent='center' marginLeft='auto'>
         <Link to="/about">

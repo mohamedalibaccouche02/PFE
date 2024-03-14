@@ -7,7 +7,7 @@ import Button_Signup from './button_signup';
 
 import Tel from './Tel'; 
 
-function Sign_Up() {
+function Sign_Up() { 
   return (
     <Flex color='white' h='100vh'>
       <Box flex='1' bg='RGBA(236,189,76,0.7)' roundedBottomRight={20} boxShadow={20}  > 

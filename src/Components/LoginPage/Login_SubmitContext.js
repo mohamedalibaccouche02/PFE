@@ -20,9 +20,9 @@ export const LoginProvider = ({ children }) => {
         setMessage_pass('Password is empty');
         setMessage_user('');
       } else {
-        setResultat({ password, Username });
+        setResultat({ password, Username }); 
         setMessage_user('');
-        setMessage_pass('');
+        setMessage_pass(''); 
       }
     };
   

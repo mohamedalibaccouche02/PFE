@@ -10,9 +10,10 @@ export const SignupSubmitProvider = ({ children }) => {
   const [signup_result, setSignUp_Result] = useState({});
 
   const handleSubmit = () => {
-    setSignUp_Result({ email, phoneNumber });
+    setSignUp_Result({ email, phoneNumber }); 
+    
   };
-
+  
   return (
     <SignupSubmitContext.Provider
       value={{

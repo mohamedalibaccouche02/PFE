@@ -31,7 +31,7 @@ export const VerificationProvider = ({ children }) => {
   };
 
   return (
-    <VerificationContext.Provider value={{ email, handleEmailChange, error_mail }}>
+    <VerificationContext.Provider value={{ email, handleEmailChange, error_mail , parseEmail }}>
       {children}
     </VerificationContext.Provider>
   );
