@@ -8,7 +8,8 @@ import { VerificationProvider } from './Components/SignUpPage/Verfication';
 import { PhoneProvider } from './Components/SignUpPage/Validationnumber';
 import { SignupSubmitProvider } from './Components/SignUpPage/Signup_SubmitContext';
 import { LouagesProvider } from './Components/Louages/LouagesContext';
-
+import { ChauffeursProvider } from './Components/Chauffeurs/ChauffeurContext';
+import { SlotProvider } from './Components/Schedular/SlotContext';
 ReactDOM.render(
   <React.StrictMode>
     <PasswordProvider>
@@ -17,8 +18,12 @@ ReactDOM.render(
           <VerificationProvider>
             <PhoneProvider>
               <SignupSubmitProvider>
-                <LouagesProvider> {/* Wrap your component tree with LouagesProvider */}
+                <LouagesProvider> 
+                  <ChauffeursProvider>
+                    <SlotProvider>
                   <App />
+                  </SlotProvider>
+                  </ChauffeursProvider>
                 </LouagesProvider>
               </SignupSubmitProvider>
             </PhoneProvider>

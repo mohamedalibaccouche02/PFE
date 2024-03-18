@@ -9,6 +9,10 @@ import Income from './Components/HomePage/Income';
 import LouagesInterface from './Components/Louages/LouagesInterface';
 import AjoutInterface from './Components/Louages/AjoutInterface'; 
 import EditLouage from './Components/Louages/EditLouage';
+import ChauffeursInterface from './Components/Chauffeurs/ChauffeursInterface';
+import AjoutChauffeurInterface from './Components/Chauffeurs/AjoutChauffeurInterface';
+import EditChauffeur from './Components/Chauffeurs/EditChauffeur';
+import SchedularInterface from './Components/Schedular/SchedularInterface';
 
 function App() {
   
@@ -23,6 +27,10 @@ function App() {
           <Route path='/Louages' element={(<LouagesInterface />)} />
           <Route path='/AjoutLouage' element={(<AjoutInterface />)} /> 
           <Route path='/EditLouage/:id' element={(<EditLouage />)} /> {/* Make the route dynamic */}
+          <Route path='/Chauffeurs' element={(<ChauffeursInterface />)} />
+          <Route path='/AjoutChauffeur' element={(<AjoutChauffeurInterface />)} /> 
+          <Route path='/EditChauffeur/:nom' element={(<EditChauffeur />)} />
+          <Route path='/Calendrier' element={(<SchedularInterface />)} /> 
         </Routes>
       </Router>
     </ChakraProvider>

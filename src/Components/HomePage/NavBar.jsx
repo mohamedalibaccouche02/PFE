@@ -10,8 +10,7 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuGroup,
-  MenuDivider,
+
 } from '@chakra-ui/react'
 
 function NavBar() {
@@ -51,8 +50,9 @@ function NavBar() {
                 <Link to='/Louages'>
                 <MenuItem color='#052c51'>  Louages</MenuItem>
                 </Link>
+                <Link to='/chauffeurs' >
                 <MenuItem color = '#052c51'>Chauffeurs</MenuItem>
-                
+                </Link>
               </MenuList>
             </Menu>
           </NavLink>
@@ -60,13 +60,13 @@ function NavBar() {
           <Divider orientation="vertical" borderColor="#052c51" mx={1} height='40px'/>
 
           <NavLink 
-            to="/income"
+            to="/Calendrier"
             style={({ isActive }) => ({
               color: isActive ? "#ecbd4c" : "#052c51",
               textDecoration: 'none',
             })}
           >
-            Income 
+            Calendrier 
           </NavLink>
 
           <Divider orientation="vertical" borderColor="#052c51" mx={1} height='40px'/>
