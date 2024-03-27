@@ -21,7 +21,7 @@ function Button_Signup({ name }) {
   return (
     <Flex justify="center" flexDirection="column" alignItems="center">
       {isValid ? ( // Check if the email is valid 
-       <Link to='/'>
+        // <Link to='/'>
         <Button
           backgroundColor={'#052c51'}
           size='md'
@@ -36,7 +36,7 @@ function Button_Signup({ name }) {
         >
           {name}
         </Button>
-         </Link>
+          // </Link>
       ) : (
         
           <Button

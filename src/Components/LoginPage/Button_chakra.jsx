@@ -4,10 +4,9 @@ import { LoginContext } from './Login_SubmitContext'; // Adjust the import path 
 import { Link } from 'react-router-dom';
 
 function Button_chakra({ name }) {
-  const { password, Username, onsubmit } = useContext(LoginContext);
-
-  const isFormFilled = Username.length > 0 && password.length > 0;
-
+  const { password, username, onsubmit } = useContext(LoginContext);
+  const isFormFilled = username.length > 0 && password.length > 0; 
+  
   return (
     <Flex justify="center"> 
       {/* Conditionally render the Link component */}

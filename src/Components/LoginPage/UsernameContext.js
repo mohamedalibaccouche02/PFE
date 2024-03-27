@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react';
 export const UsernameContext = createContext();
 
 export const UsernameProvider = ({ children }) => {
-  const [Username, setUsername] = useState(''); // State for password
+  const [username, setUsername] = useState(''); // State for password
 
 //   const togglePasswordVisibility = () => {
 //     setShowPassword(!showPassword);
@@ -11,7 +11,7 @@ export const UsernameProvider = ({ children }) => {
 
   return (
     <UsernameContext.Provider value={{ 
-      Username ,
+      username ,
       setUsername ,
     }}>
       {children}

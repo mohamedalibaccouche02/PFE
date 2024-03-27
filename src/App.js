@@ -1,8 +1,8 @@
 import React from 'react';
-import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ChakraProvider } from '@chakra-ui/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import LoginPage from './Components/LoginPage/LoginPage'; 
-import { ChakraProvider } from '@chakra-ui/react'
 import { SignUpPage } from './Components/SignUpPage/SignUpPage';
 import HomePage from './Components/HomePage/HomePage'; 
 import Income from './Components/HomePage/Income';
@@ -14,26 +14,31 @@ import AjoutChauffeurInterface from './Components/Chauffeurs/AjoutChauffeurInter
 import EditChauffeur from './Components/Chauffeurs/EditChauffeur';
 import SchedularInterface from './Components/Schedular/SchedularInterface';
 
+// Create a new instance of QueryClient
+const queryClient = new QueryClient();
+
 function App() {
-  
   return (
-    <ChakraProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />  
-          <Route path="/Signuppage" element={<SignUpPage />} />
-          <Route path='/Home' element={(<HomePage />)} />
-          <Route path='/income' element={(<Income />)} />
-          <Route path='/Louages' element={(<LouagesInterface />)} />
-          <Route path='/AjoutLouage' element={(<AjoutInterface />)} /> 
-          <Route path='/EditLouage/:id' element={(<EditLouage />)} /> {/* Make the route dynamic */}
-          <Route path='/Chauffeurs' element={(<ChauffeursInterface />)} />
-          <Route path='/AjoutChauffeur' element={(<AjoutChauffeurInterface />)} /> 
-          <Route path='/EditChauffeur/:nom' element={(<EditChauffeur />)} />
-          <Route path='/Calendrier' element={(<SchedularInterface />)} /> 
-        </Routes>
-      </Router>
-    </ChakraProvider>
-  )
-} 
+    <QueryClientProvider client={queryClient}> {/* Wrap your entire app with QueryClientProvider */}
+      <ChakraProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />  
+            <Route path="/Signuppage" element={<SignUpPage />} />
+            <Route path='/Home' element={<HomePage />} />
+            <Route path='/income' element={<Income />} />
+            <Route path='/Louages' element={<LouagesInterface />} />
+            <Route path='/AjoutLouage' element={<AjoutInterface />} /> 
+            <Route path='/EditLouage/:id' element={<EditLouage />} />
+            <Route path='/Chauffeurs' element={<ChauffeursInterface />} />
+            <Route path='/AjoutChauffeur' element={<AjoutChauffeurInterface />} /> 
+            <Route path='/EditChauffeur/:id' element={<EditChauffeur />} />
+            <Route path='/Calendrier' element={<SchedularInterface />} /> 
+          </Routes>
+        </Router>
+      </ChakraProvider>
+    </QueryClientProvider>
+  );
+}
+
 export default App;

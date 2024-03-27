@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
-import { Flex, Text, Input, Alert, AlertIcon, Center } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import ButtonAjoutChauffeur from './ButtonAjoutChauffeur';
+import { Flex, Text, Input, Alert, AlertIcon, Center,Button,ButtonGroup } from '@chakra-ui/react';
 import ChauffeurContext from './ChauffeurContext';
-import { color } from 'framer-motion';
+import {createChauffeur} from '../../api/chauffeur_api'; 
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 function AjoutChauffeurInterface() {
-  const { nom, setNom, salaire, setSalaire, startWork, setStartWork, endWork, setEndWork, handleSave, error,setColor } = useContext(ChauffeurContext);
-
+  const { nom, setNom, salaire, setSalaire, startWork, setStartWork, endWork, setEndWork,  error,color,setColor,setError } = useContext(ChauffeurContext);
+  const navigate = useNavigate();
+  
+  
   const handlechangeNom = (e) => {
     setNom(e.target.value);
   };
@@ -27,6 +29,46 @@ function AjoutChauffeurInterface() {
     setColor(e.target.value);
   };
 
+
+  const createChauffeurMutation = useMutation(createChauffeur);
+  const handleSave = async () => {
+    if (nom.length === 0 && salaire.length === 0 &&startWork.length===0 &&endWork.length===0 &&color.length===0) {
+      setError('Nom and Salaire are required.');
+    } else if (nom.length === 0) {
+      setError('Nom is required.');
+    } else if (salaire.length === 0) {
+      setError('Salaire is required.');
+    } else if (startWork.length === 0) {
+      setError('Start Work is required.');
+    } else if (endWork.length === 0) {
+      setError('End Work is required.');
+    } else if (color.length === 0) {
+      setError('Color is required.');
+    } else {
+      const newChauffeur = {
+        nom,
+        salaire,
+        startWork,
+        endWork,
+        src: 'https://bit.ly/broken-link',
+        color,
+      };
+      try {
+        const { data } = await createChauffeurMutation.mutateAsync(newChauffeur);
+        setError('');
+        setNom('');
+        setSalaire('');
+        setStartWork('');
+        setEndWork('');
+        setColor('');
+        navigate('/Chauffeurs');
+      } catch (error) {
+        console.error(error);
+        setError('Failed to create chauffeur.');
+      }
+    }
+  };
+  
   return (
     <div>
       <Flex
@@ -74,7 +116,7 @@ function AjoutChauffeurInterface() {
           <Input
             placeholder='End Work (HH:MM)'
             size='lg'
-            value={endWork}
+           value={endWork}
             onChange={handlechangeEndWork}
             mb={4}
             color='black'
@@ -94,10 +136,10 @@ function AjoutChauffeurInterface() {
             </Alert>
           )}
           <Center>
-          <Link to='/Chauffeurs'>
-            <ButtonAjoutChauffeur handleSave={handleSave} />
-            </Link>
-          </Center>
+          <ButtonGroup variant='outline' spacing='6'>
+            <Button colorScheme='blue' onClick={handleSave}>Save</Button>
+          </ButtonGroup>
+        </Center>
         </Flex>
       </Flex>
     </div>

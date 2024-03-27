@@ -7,31 +7,31 @@ export const PhoneContext = createContext();
 
 export const PhoneProvider = ({ children }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [error_number, setError_Number] = useState(null);
+  const [errorNumber, setErrorNumber] = useState(null);
 
   const parsePhoneNumber = (phoneNumber) => {
     try {
       phoneSchema.parse(phoneNumber);
       return { isValid: true, phoneNumber };
-    } catch (error_number) {
-      return { isValid: false, error_number };
+    } catch (error) {
+      return { isValid: false, error };
     }
   };
 
   const handlePhoneChange = (phoneNumber) => {
-    const { isValid, error_number } = parsePhoneNumber(phoneNumber);
+    const { isValid, error } = parsePhoneNumber(phoneNumber);
     if (isValid) {
       setPhoneNumber(phoneNumber);
-      setError_Number(null);
-      console.log('Correct phoneNumber number:', phoneNumber); // Log the correct phoneNumber number to the console
+      setErrorNumber(null);
+      console.log('Correct phone number:', phoneNumber); // Log the correct phone number to the console
     } else {
-      setError_Number('Invalid phoneNumber number');
+      setErrorNumber('Invalid phone number');
       setPhoneNumber('');
     }
   };
 
   return (
-    <PhoneContext.Provider value={{ phoneNumber, handlePhoneChange, error_number }}>
+    <PhoneContext.Provider value={{ phoneNumber, handlePhoneChange, errorNumber }}>
       {children}
     </PhoneContext.Provider>
   );

@@ -1,14 +1,28 @@
 import React, { useContext } from 'react';
 import { Flex, Box, Spacer, Button, Avatar, Center } from '@chakra-ui/react'; // Import Center component from Chakra-UI
 import ChauffeurContext from './ChauffeurContext';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useMutation, useQueryClient } from 'react-query'; 
+import { deleteChauffeur } from '../../api/chauffeur_api';
 
 function ContainerChauffeur({ item }) { // Define item as a parameter
-    const { deleteItem } = useContext(ChauffeurContext);
+    const {setChauffeurId } = useContext(ChauffeurContext);
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+  const mutation = useMutation(deleteChauffeur, {
+    onSuccess: () => {
+      // Invalidate and refetch the 'chauffeur' query to update the UI
+      queryClient.invalidateQueries('chauffeur');
+    },});
 
     const handleDelete = () => {
-      console.log("Deleting item:", item.id);
-      deleteItem(item.id);
+      mutation.mutate(item._id); 
+    }; 
+  
+
+    const handleEdit = () => {
+      setChauffeurId(item._id);
+      navigate(`/EditChauffeur/${item._id}`);
     };
   
   return (
@@ -29,7 +43,7 @@ function ContainerChauffeur({ item }) { // Define item as a parameter
         </Box>
         <Spacer />
         <Box mr='2%'>
-          <Link to={`/EditChauffeur/${item.nom}`}>
+          
             <Button
               backgroundColor={'#052c51'}
               size='md'
@@ -39,11 +53,12 @@ function ContainerChauffeur({ item }) { // Define item as a parameter
               borderColor='#052c51'
               mt={0}
               rounded={20}
-              colorScheme="whiteAlpha"
+              colorScheme="white"
+              onClick={handleEdit}
             >
               Edit
             </Button>
-          </Link>
+          
         </Box>
         <Box mr='2%'>
           <Button

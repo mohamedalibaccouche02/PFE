@@ -1,61 +1,46 @@
 import React, { useContext, useState } from 'react';
-import { Flex, Text, Input, Alert, AlertIcon } from '@chakra-ui/react';
-import { Link, useParams } from 'react-router-dom';
-import ButtonAjoutChauffeur from './ButtonAjoutChauffeur';
+import { Flex, Text, Input, Alert, AlertIcon, Button, ButtonGroup, Center } from '@chakra-ui/react';
 import ChauffeurContext from './ChauffeurContext';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function EditChauffeur() {
-  const { nom } = useParams(); // Change from 'id' to 'nom'
-  const { nom_edited, salaire, salaire_edited, setNom_Edited, setSalaire_Edited, editItem, startWork, setStartWork, endWork, setEndWork,color,setColor } = useContext(ChauffeurContext);
+  const { chauffeurId } = useContext(ChauffeurContext);
+  const [nomEdited, setNomEdited] = useState('');
+  const [salaireEdited, setSalaireEdited] = useState('');
+  const [startWorkEdited, setStartWorkEdited] = useState('');
+  const [endWorkEdited, setEndWorkEdited] = useState('');
+  const [colorEdited, setColorEdited] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handlechangeNom = (e) => {
-    setNom_Edited(e.target.value);
-  };
+  const mutation = useMutation(async (updatedChauffeur) => {
+    const response = await axios.put(`http://localhost:5000/chauffeurs/${chauffeurId}`, updatedChauffeur);
+    return response.data;
+  });
 
-  const handlechangeSalaire = (e) => {
-    setSalaire_Edited(e.target.value);
-  };
+  const handleSaveEdited = async () => {
+    const updatedChauffeur = {
+      nom: nomEdited,
+      salaire: salaireEdited,
+      startWork: startWorkEdited,
+      endWork: endWorkEdited,
+      color: colorEdited
+    };
 
-  const handlechangeStartWork = (e) => {
-    setStartWork(e.target.value);
-  };
-
-  const handlechangeEndWork = (e) => {
-    setEndWork(e.target.value);
-  };
-  const handlechangeColor = (e) => {
-    setColor(e.target.value);
-  };
-
-  const handleSave_Edited = () => {
-    if (nom_edited.length === 0) {
-      const updatedChauffeur = { nom: nom, salaire: salaire_edited, startWork: startWork, endWork: endWork ,color:color };
-      editItem(nom, updatedChauffeur);
-      setError('');
-      setNom_Edited('');
-      setSalaire_Edited('');
-      setStartWork('');
-      setEndWork('');
-      setColor('');
-    } else if (salaire_edited.length === 0) {
-      const updatedLouage = { nom: nom_edited, salaire: salaire, startWork: startWork, endWork: endWork ,color:color};
-      editItem(nom, updatedLouage);
-      setError('');
-      setNom_Edited('');
-      setSalaire_Edited('');
-      setStartWork('');
-      setEndWork('');
-      setColor('');
+    if (!nomEdited || !salaireEdited || !startWorkEdited || !endWorkEdited || !colorEdited) {
+      setError('All fields are required.');
     } else {
-      const updatedChauffeur = { nom: nom_edited, salaire: salaire_edited, startWork: startWork, endWork: endWork ,color:color};
-      editItem(nom, updatedChauffeur);
       setError('');
-      setNom_Edited('');
-      setSalaire_Edited('');
-      setStartWork('');
-      setEndWork('');
-      setColor('');
+
+      try {
+        await mutation.mutateAsync(updatedChauffeur);
+        navigate('/chauffeurs'); // Navigate to the Chauffeurs page after successful update
+      } catch (error) {
+        console.error(error);
+        setError('Failed to update chauffeur');
+      }
     }
   };
 
@@ -78,54 +63,56 @@ function EditChauffeur() {
       >
         <Text mb='8px' fontSize="xl" color='blue'>Edit Chauffeur</Text>
         <Input
-          placeholder='Nom_edited'
+          placeholder='Nom'
           size='lg'
-          value={nom_edited}
-          onChange={handlechangeNom}
+          value={nomEdited}
+          onChange={(e) => setNomEdited(e.target.value)}
           mb={4}
           color='black'
         />
         <Input
-          placeholder='Salaire_edited'
+          placeholder='Salaire'
           size='lg'
-          value={salaire_edited}
-          onChange={handlechangeSalaire}
+          value={salaireEdited}
+          onChange={(e) => setSalaireEdited(e.target.value)}
           mb={4}
           color='black'
         />
         <Input
           placeholder='Start Work'
           size='lg'
-          value={startWork}
-          onChange={handlechangeStartWork}
+          value={startWorkEdited}
+          onChange={(e) => setStartWorkEdited(e.target.value)}
           mb={4}
           color='black'
         />
         <Input
           placeholder='End Work'
           size='lg'
-          value={endWork}
-          onChange={handlechangeEndWork}
+          value={endWorkEdited}
+          onChange={(e) => setEndWorkEdited(e.target.value)}
           mb={4}
           color='black'
         />
         <Input
-            placeholder='Color'
-            size='lg'
-            value={color}
-            onChange={handlechangeColor}
-            mb={4}
-            color='black'
-          />
+          placeholder='Color'
+          size='lg'
+          value={colorEdited}
+          onChange={(e) => setColorEdited(e.target.value)}
+          mb={4}
+          color='black'
+        />
         {error && (
           <Alert status="error" mb={4}>
             <AlertIcon />
             {error}
           </Alert>
         )}
-        <Link to='/Chauffeurs'>
-        <ButtonAjoutChauffeur handleSave={handleSave_Edited} />
-        </Link>
+        <Center>
+          <ButtonGroup variant='outline' spacing='6'>
+            <Button colorScheme='blue' onClick={handleSaveEdited}>Save</Button>
+          </ButtonGroup>
+        </Center>
       </Flex>
     </Flex>
   );

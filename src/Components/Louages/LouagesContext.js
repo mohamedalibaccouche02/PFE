@@ -1,6 +1,6 @@
-// LouagesContext.js
 import React, { createContext, useState, useEffect } from 'react';
-import LouageImage from './louaj.png';
+
+
 
 const LouagesContext = createContext();
 
@@ -15,11 +15,12 @@ const saveLouagesToLocalStorage = (data) => {
 
 export const LouagesProvider = ({ children }) => {
   const [id, setId] = useState('');
-  const [route, setRoute] = useState(''); 
-  const [id_edited , setId_Edited] = useState('') ;
-  const [route_edited , setRoute_Edited] = useState('') ;
+  const [route, setRoute] = useState('');
   const [error, setError] = useState('');
+  const [louageId , setLouageId] = useState('') ; 
   const [items, setItems] = useState(getLouagesFromLocalStorage());
+  const [nom , setNom] = useState('') ; 
+  const [id_Deleted , setId_Deleted] = useState('') ; 
 
   useEffect(() => {
     saveLouagesToLocalStorage(items);
@@ -45,21 +46,6 @@ export const LouagesProvider = ({ children }) => {
     setItems(updatedLouages);
   };
 
-  const handleSave = () => {
-    if (id.length === 0 && route.length === 0) {
-      setError('ID and Route are required.');
-    } else if (id.length === 0) {
-      setError('ID is required.');
-    } else if (route.length === 0) {
-      setError('Route is required.');
-    } else {
-      const newLouage = { id, route, src: LouageImage };
-      addItem(newLouage);
-      setError('');
-      setId('');
-      setRoute('');
-    }
-  }; 
 
 
   return (
@@ -67,18 +53,20 @@ export const LouagesProvider = ({ children }) => {
       value={{
         items,
         deleteItem,
-        editItem, // Add editItem to the context value
+        editItem,
         addItem,
         route,
         setRoute,
         id,
         setId,
         error,
-        handleSave, 
-        id_edited , 
-        setId_Edited, 
-        route_edited , setRoute_Edited ,
-        
+        setError ,
+        louageId , 
+        setLouageId , 
+        nom , 
+        setNom , 
+        id_Deleted , 
+        setId_Deleted
       }}
     >
       {children}

@@ -7,31 +7,31 @@ export const VerificationContext = createContext();
 
 export const VerificationProvider = ({ children }) => {
   const [email, setEmail] = useState('');
-  const [error_mail, setError_Mail] = useState(null);
+  const [errorMail, setErrorMail] = useState(null);
 
   const parseEmail = (email) => {
     try {
       emailSchema.parse(email);
       return { isValid: true, email };
-    } catch (error_mail) {
-      return { isValid: false, error_mail };
+    } catch (error) {
+      return { isValid: false, error };
     }
   };
 
   const handleEmailChange = (email) => {
-    const { isValid, error_mail } = parseEmail(email);
+    const { isValid, error } = parseEmail(email);
     if (isValid) {
       setEmail(email);
-      setError_Mail(null); 
+      setErrorMail(null);
       console.log('Correct email:', email); // Log the correct email to the console
     } else {
-      setError_Mail('wrong mail');
-      setEmail('') ;
+      setErrorMail('Invalid email');
+      setEmail('');
     }
   };
 
   return (
-    <VerificationContext.Provider value={{ email, handleEmailChange, error_mail , parseEmail }}>
+    <VerificationContext.Provider value={{ email, handleEmailChange, errorMail, parseEmail }}>
       {children}
     </VerificationContext.Provider>
   );
