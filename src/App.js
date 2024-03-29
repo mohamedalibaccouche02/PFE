@@ -14,12 +14,12 @@ import AjoutChauffeurInterface from './Components/Chauffeurs/AjoutChauffeurInter
 import EditChauffeur from './Components/Chauffeurs/EditChauffeur';
 import SchedularInterface from './Components/Schedular/SchedularInterface';
 
-// Create a new instance of QueryClient
+
 const queryClient = new QueryClient();
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}> {/* Wrap your entire app with QueryClientProvider */}
+    <QueryClientProvider client={queryClient}> 
       <ChakraProvider>
         <Router>
           <Routes>

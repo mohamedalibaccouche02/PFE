@@ -1,12 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { Flex, Box, Image ,Text , Button } from '@chakra-ui/react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Login_Form_Chakra from './Login_Form_Chakra';
 import Username from './Username_chakra';
 import PasswordInput from './Password_Chakra';
-import Button_chakra from './Button_chakra';
 import Louage from './louaj.png';
-import { SignupSubmitContext } from '../SignUpPage/Signup_SubmitContext';
 import { LoginContext } from './Login_SubmitContext';
 import { useQuery } from 'react-query';
 import { fetchAllUsers } from '../../api/user_api';
@@ -19,7 +17,7 @@ function Chakra() {
 
  console.log(username , password) ; 
 
- const { data, isError, isLoading } = useQuery('users', fetchAllUsers);
+ const { data} = useQuery('users', fetchAllUsers);
  
  const handleLogin = () => {
    if (username.length === 0 || password.length === 0) {

@@ -6,6 +6,7 @@ const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 const louageRoutes = require('./routes/louageRoutes');
 const chauffeurRoutes = require('./routes/chauffeurRoutes');
+const passengerRoutes = require('./routes/passengerRoutes'); 
 
 // Create express app
 const app = express();
@@ -20,6 +21,7 @@ app.use(cors());
 app.use('/users', userRoutes);
 app.use('/louages', louageRoutes);
 app.use('/chauffeurs', chauffeurRoutes);
+app.use('/passengers',passengerRoutes)
 
 // Error handling middleware
 app.use((err, req, res, next) => {

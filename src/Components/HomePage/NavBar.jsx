@@ -13,7 +13,9 @@ import {
 
 } from '@chakra-ui/react'
 
+
 function NavBar() {
+  
   return (
     <Grid templateColumns='repeat(3, 1fr)' gap={6} p={4} bg='#052c51' color='white'>
       <Box>

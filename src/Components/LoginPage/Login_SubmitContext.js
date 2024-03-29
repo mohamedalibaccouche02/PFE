@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { UsernameContext } from './UsernameContext'; 
 import { PasswordContext } from './Passwordcontext';
-import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
 
 export const LoginContext = createContext();
 
@@ -12,7 +10,6 @@ export const LoginProvider = ({ children }) => {
     const [Resultat, setResultat] = useState({});  
     const [Message_user , setMessage_user] = useState('');
     const [Message_pass , setMessage_pass] = useState('');
-    // const navigate = useNavigate()
     console.log(Resultat);
 
     const onsubmit = () => {
@@ -27,13 +24,6 @@ export const LoginProvider = ({ children }) => {
         setMessage_user('');
         setMessage_pass(''); 
       }
-      
-      
-
-
-
-
-
     };
   
     return (

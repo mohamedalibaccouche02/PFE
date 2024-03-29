@@ -5,12 +5,14 @@ const LouageSchema = mongoose.Schema({
         type: String,
         required: [true, "Please enter an id"]
     },
-   
     route: {
         type: String,
         required: [true, "Please enter a route"]
     },
-    // Add other properties related to Louage
+    passengers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Passengers'
+    }]
 }, {
     timestamps: true,
 });
