@@ -13,7 +13,7 @@ function Email() {
           pr='4.5rem'
           placeholder='Email'
           height={10}
-          color={'#052c51'}
+          
           onChange={(e) => handleEmailChange(e.target.value)} // Pass a function reference to onChange
         />
         <InputRightElement width='4rem'>

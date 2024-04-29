@@ -19,25 +19,6 @@ export const SignupSubmitProvider = ({ children }) => {
 
   const { validNumber } = parseInt(phoneNumber);
 
-
-
-
-  // const handleSubmit = async () => {
-  //   if (!email || !phoneNumber) {
-  //     setError('There is an empty input');
-  //   } else if (!isValid) {
-  //     setError('email is not valid');
-  //   } else if (!validNumber) {
-  //     setError('number is not valid');
-  //   } else {
-  //     try {
-  //       const response = await createUser(userData);
-  //     } catch (error) {
-  //       setError('An error occurred while creating the user');
-  //     }
-  //   }
-  // };
-
   return (
     <SignupSubmitContext.Provider
       value={{

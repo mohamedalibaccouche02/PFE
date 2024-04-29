@@ -23,10 +23,12 @@ const UserSchema = mongoose.Schema({
     },
     louages: [{
         type: mongoose.Schema.Types.ObjectId,
+        default:[],
         ref: 'Louage'
     }],
     chauffeurs: [{
         type: mongoose.Schema.Types.ObjectId,
+        default:[],
         ref: 'Chauffeur'
     }]
 }, {

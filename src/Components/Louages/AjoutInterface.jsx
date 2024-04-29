@@ -1,40 +1,51 @@
 import React, { useContext } from 'react';
-import { Flex, Text, Input, Alert, AlertIcon, Center } from '@chakra-ui/react';
+import { Flex, Text, Input, Alert, AlertIcon, Center, Select } from '@chakra-ui/react';
 import LouagesContext from './LouagesContext';
 import { ButtonGroup,Button } from '@chakra-ui/react'
 import LouageImage from './louaj.png';
 import { useMutation } from 'react-query';
 import { createlouage } from '../../api/louage_api';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function AjoutInterface() {
-  const { route, setRoute, id, setId, error, setError, addItem  , nom , setNom} = useContext(LouagesContext);
+  const { route, setRoute, error, setError , nom , setNom,raspberryID,setRaspberryID} = useContext(LouagesContext);
   const navigate = useNavigate();
+ 
+  const handelchangeraspberryID = (e) =>{
+    setRaspberryID(e.target.value);
+  };
+
+
 
   const handlechangenom= (e) => {
     setNom(e.target.value);
   };
 
-  const handlechangeROUTE = (e) => {
-    setRoute(e.target.value);
+  const handlechangeROUTE = (value) => {
+    setRoute(value);
   };
 
   const createLouageMutation = useMutation(createlouage);
 
   const handleSave = async () => {
-    if (nom.length === 0 && route.length === 0) {
-      setError('ID and Route are required.');
-    } else if (nom.length === 0) {
+    if (raspberryID ===0 && nom.length === 0 && route.length === 0) {
+      setError('Tous les champs sont nécessaires');
+    }else if(raspberryID.length ===0){
       setError('ID is required.');
+    }
+     else if (nom.length === 0) {
+      setError('nom is required.');
     } else if (route.length === 0) {
       setError('Route is required.');
     } else {
-      const newLouage = { nom, route, src: LouageImage };
+      const newLouage = { raspberryID,nom, route, src: LouageImage };
       try {
         const { data } = await createLouageMutation.mutateAsync(newLouage);
      
           
           setError('');
+          setRaspberryID('');
           setNom('');
           setRoute('');
           navigate('/Louages');
@@ -64,7 +75,14 @@ function AjoutInterface() {
         h='50%'
         justifyContent="space-between" // Align children with space between
       >
-        <Text mb='8px' fontSize="xl" color='blue'>Value</Text>
+        <Text mb='8px' fontSize="xl" color='blue'>Ajouter</Text>
+        <Input
+          placeholder='Raspberry ID'
+          size='lg'
+          onChange={handelchangeraspberryID}
+          mb={4} 
+          color='black'
+        />
         <Input
           placeholder='nom'
           size='lg'
@@ -72,13 +90,20 @@ function AjoutInterface() {
           mb={4} 
           color='black'
         />
-        <Input
-          placeholder='Route'
+        <Select
+          placeholder="Select Route"
+          value={route}
+          onChange={(e) => handlechangeROUTE(e.target.value)}
           size='lg'
-          onChange={handlechangeROUTE}
           mb={4}
           color='black'
-        />
+        >
+          <option value="kalaa kbira">Kalaa Kbira</option>
+          <option value="hergla">Hergla</option>
+          <option value="Beb bhar">Beb Bhar</option>
+          <option value="akouda">Akouda</option>
+          <option value="menchia">Menchia</option>
+        </Select>
         {error && (
           <Alert status="error" mb={4}>
             <AlertIcon />
@@ -87,7 +112,10 @@ function AjoutInterface() {
         )}
         <Center>
           <ButtonGroup variant='outline' spacing='6'>
-            <Button colorScheme='blue' onClick={handleSave}>Save</Button>
+            <Button colorScheme='blue' w='200px' onClick={handleSave}>Save</Button>
+            <Link to={'/Louages'} >
+                <Button colorScheme='blue' w='200px' >Annuler</Button>
+              </Link>
           </ButtonGroup>
         </Center>
       </Flex>

@@ -1,7 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
 
-
-
 const LouagesContext = createContext();
 
 const getLouagesFromLocalStorage = () => {
@@ -17,14 +15,19 @@ export const LouagesProvider = ({ children }) => {
   const [id, setId] = useState('');
   const [route, setRoute] = useState('');
   const [error, setError] = useState('');
-  const [louageId , setLouageId] = useState('') ; 
+  const [louageId, setLouageId] = useState('');
   const [items, setItems] = useState(getLouagesFromLocalStorage());
-  const [nom , setNom] = useState('') ; 
-  const [id_Deleted , setId_Deleted] = useState('') ; 
+  const [nom, setNom] = useState('');
+  const [id_Deleted, setId_Deleted] = useState('');
+  const[raspberryID,setRaspberryID]=useState('')
 
   useEffect(() => {
     saveLouagesToLocalStorage(items);
   }, [items]);
+
+  useEffect(() => {
+    localStorage.setItem('louageId', louageId);
+  }, [louageId]);
 
   const deleteItem = (itemId) => {
     const updatedLouages = items.filter((louage) => louage.id !== itemId);
@@ -46,8 +49,6 @@ export const LouagesProvider = ({ children }) => {
     setItems(updatedLouages);
   };
 
-
-
   return (
     <LouagesContext.Provider
       value={{
@@ -60,13 +61,15 @@ export const LouagesProvider = ({ children }) => {
         id,
         setId,
         error,
-        setError ,
-        louageId , 
-        setLouageId , 
-        nom , 
-        setNom , 
-        id_Deleted , 
-        setId_Deleted
+        setError,
+        louageId,
+        setLouageId,
+        nom,
+        setNom,
+        id_Deleted,
+        setId_Deleted,
+        raspberryID,
+        setRaspberryID
       }}
     >
       {children}

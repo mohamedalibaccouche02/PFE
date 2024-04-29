@@ -4,18 +4,25 @@ import { HiMiniUserCircle } from "react-icons/hi2";
 import { NavLink } from 'react-router-dom';
 import logo from './logoo.jpg';
 import { ChevronDownIcon } from '@chakra-ui/icons'; 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import LogoutPopover from './LogoutPopover'; // Import the LogoutPopover component
 import {
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
 
 function NavBar() {
-  
+  const history = useNavigate();
+
+  // Function to handle logout
+  const handleLogout = () => {
+ 
+    history('/'); 
+  };
+   
   return (
     <Grid templateColumns='repeat(3, 1fr)' gap={6} p={4} bg='#052c51' color='white'>
       <Box>
@@ -23,7 +30,6 @@ function NavBar() {
       </Box>
       <Box bg="white" borderRadius="md" p={2} width='600px'>
         <Flex alignItems='center' justifyContent='space-between'>
-
           <NavLink 
             to="/Home"
             style={({ isActive }) => ({
@@ -34,11 +40,8 @@ function NavBar() {
           >
             Home
           </NavLink>
-
           <Divider orientation="vertical" borderColor="#052c51" mx={1} height='40px'/>
-
           <NavLink 
-            
             style={({ isActive }) => ({
               color: isActive ? "#ecbd4c" : "#052c51" ,
               textDecoration: 'none',
@@ -50,17 +53,15 @@ function NavBar() {
               </MenuButton>
               <MenuList>  
                 <Link to='/Louages'>
-                <MenuItem color='#052c51'>  Louages</MenuItem>
+                  <MenuItem color='#052c51'>Louages</MenuItem>
                 </Link>
-                <Link to='/chauffeurs' >
-                <MenuItem color = '#052c51'>Chauffeurs</MenuItem>
+                <Link to='/chauffeurs'>
+                  <MenuItem color='#052c51'>Chauffeurs</MenuItem>
                 </Link>
               </MenuList>
             </Menu>
           </NavLink>
-
           <Divider orientation="vertical" borderColor="#052c51" mx={1} height='40px'/>
-
           <NavLink 
             to="/Calendrier"
             style={({ isActive }) => ({
@@ -70,9 +71,7 @@ function NavBar() {
           >
             Calendrier 
           </NavLink>
-
           <Divider orientation="vertical" borderColor="#052c51" mx={1} height='40px'/>
-
           <NavLink 
             to="/contact"
             style={({ isActive }) => ({
@@ -83,12 +82,13 @@ function NavBar() {
           >
             Contact
           </NavLink>
-          
         </Flex>
       </Box>
       <Flex alignItems='center' marginLeft='auto'>
-        <Text fontSize="md" color="#white">Username</Text>
-        <Icon as={HiMiniUserCircle} boxSize={14} marginLeft="2" />
+        <Text fontSize="md" color="#white">Dali</Text>
+        <Icon as={HiMiniUserCircle} boxSize={14} marginLeft="3" />
+       
+        <LogoutPopover onLogout={handleLogout} />
       </Flex>
     </Grid>
   );

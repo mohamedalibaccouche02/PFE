@@ -46,7 +46,7 @@ function App() {
     
       
       <VictoryChart
-        domainPadding={{ x: 10 }}
+        domainPadding={{ x:15 }}
         animate={{ duration: 500 }}
       >
         <VictoryBar

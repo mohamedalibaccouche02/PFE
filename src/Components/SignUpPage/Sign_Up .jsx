@@ -3,7 +3,6 @@ import { Flex, Box, Image, Button, Text } from '@chakra-ui/react';
 import Email from './Email';
 import Louage from './louaj.png';
 import Sign_up_text from './Sign_up_text';
-import Button_Signup from './button_signup';
 import { SignupSubmitContext } from './Signup_SubmitContext';
 import Tel from './Tel';
 import { Input } from '@chakra-ui/react';
@@ -14,8 +13,8 @@ import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
 
 function Sign_Up() {
-  const { username, setUsername, password, setPassword, signupResult } = useContext(SignupSubmitContext);
-  const { email, isValid } = useContext(VerificationContext);
+  const { username, setUsername, password, setPassword } = useContext(SignupSubmitContext);
+  const { email} = useContext(VerificationContext);
   const { phoneNumber } = useContext(PhoneContext);
   const navigate = useNavigate() ; 
   
@@ -80,10 +79,10 @@ function Sign_Up() {
       <Box flex='1' bg='RGBA(236,189,76,0.7)' roundedBottomRight={20} boxShadow={20}>
         <Sign_up_text />
         <Flex flexDirection="column" alignItems="center">
-          <Input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
+          <Input  value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username"  size='md' mt={10} w={650} ml={10} backgroundColor='white' />
           <Text color="red">{errors.username}</Text>
 
-          <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+          <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" size='md' mt={10} w={650} ml={10} backgroundColor='white'/>
           <Text color="red">{errors.password}</Text>
 
           <Email />
@@ -101,7 +100,7 @@ function Sign_Up() {
 
           {/* Button wrapped in Flex container for centering */}
           <Flex justify="center" mt='5%'>
-            <Button color='#052c51' onClick={handleSubmit}>Sign_Up</Button>
+            <Button colorScheme='white' backgroundColor='#052c51' onClick={handleSubmit}>SignUp</Button>
           </Flex>
         </Flex>
       </Box>

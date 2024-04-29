@@ -10,12 +10,13 @@ import { useQuery } from 'react-query';
 import { fetchAllUsers } from '../../api/user_api';
 
 function Chakra() { 
- const {username , password , setUsername , setPassword} = useContext(LoginContext) ; 
+ const {username , password , setUsername , setPassword } = useContext(LoginContext) ; 
  const [isLoggedIn , setIsLoggedIn] = useState(false) ; 
  const [err , setErr] = useState('') ; 
+ const[loggedInUsername , setLoggedInUsername] = useState('')
  const navigate = useNavigate() ; 
 
- console.log(username , password) ; 
+console.log('aa:',username ,'bbbb:', password ,'ccc:', loggedInUsername) ; 
 
  const { data} = useQuery('users', fetchAllUsers);
  
@@ -29,9 +30,10 @@ function Chakra() {
          if (item.username === username && item.password === password) {
            setIsLoggedIn(true);
            setUsername('') ; 
-           setPassword('') ;
-           navigate('/Home') ; 
-           
+           setPassword('') 
+           setLoggedInUsername(username);
+           navigate('/Home');
+            
          }
        });
        if (!isLoggedIn) {
@@ -62,7 +64,7 @@ function Chakra() {
           > Login </Button>
         </Flex>
        
-        <Flex justify="center" mt={2}> {/* Flex container for the "forget password" text */}
+        <Flex justify="center" mt={2}> 
           <Text color='red'>{err}</Text>
         </Flex>
       </Box>

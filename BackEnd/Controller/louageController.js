@@ -1,4 +1,4 @@
-const Louage = require('../Models/Louaje');
+const Louage = require('../Models/Louaje')
 
 // Create a new louage
 exports.createLouage = async (req, res) => {
@@ -13,7 +13,7 @@ exports.createLouage = async (req, res) => {
 // Get all louages
 exports.getAllLouages = async (req, res) => {
   try {
-    const louages = await Louage.find();
+    const louages = await Louage.find().populate('passengers'); // Populate passengers
     res.status(200).json(louages);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -23,7 +23,7 @@ exports.getAllLouages = async (req, res) => {
 // Get a louage by ID
 exports.getLouageById = async (req, res) => {
   try {
-    const louage = await Louage.findById(req.params.id);
+    const louage = await Louage.findById(req.params.id).populate('passengers'); // Populate passengers
     if (!louage) {
       return res.status(404).json({ message: 'Louage not found' });
     }

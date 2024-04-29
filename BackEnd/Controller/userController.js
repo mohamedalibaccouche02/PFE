@@ -3,12 +3,23 @@ const User = require('../Models/User');
 // Create a new user
 exports.createUser = async (req, res) => {
   try {
+    // Create the user
     const user = await User.create(req.body);
+
+    // Create empty arrays for louages, chauffeurs, and passengers
+    user.louages = [];
+    user.chauffeurs = [];
+    
+
+    // Save the user with associated data
+    await user.save();
+
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Get all users
 exports.getAllUsers = async (req, res) => {
@@ -56,6 +67,19 @@ exports.deleteUserById = async (req, res) => {
       return res.status(404).json({ message: `Cannot find any user with ID ${id}` });
     }
     res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+exports.getUserDataAfterLogin = async (req, res) => {
+  try {
+    // Retrieve user data based on the user ID provided in the URL parameter
+    const userId = req.params.id;
+     const user = await User.findById(userId);
+     if(user){
+      res.status(200).json({ message: 'User data fetched after login', userId });
+     }
+     
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

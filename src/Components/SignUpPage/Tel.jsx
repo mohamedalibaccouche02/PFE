@@ -9,7 +9,7 @@ function Tel() {
   
   return (<>
     
-      <InputGroup size='md' mt={10} w={650} ml={10} border={0} backgroundColor='white' >
+      <InputGroup size='md' mt={10} w={650} ml={10}  backgroundColor='white' >
         <InputRightElement pointerEvents='none' width='4rem'>
           <PhoneIcon color='#052c51' />
         </InputRightElement>
@@ -18,7 +18,7 @@ function Tel() {
         type='tel'
          placeholder='Phone number'
          height={10}
-         color={'#052c51'}
+         
          onChange={(e) => handlePhoneChange(e.target.value)}
         
         />

@@ -10,6 +10,8 @@ export const LoginProvider = ({ children }) => {
     const [Resultat, setResultat] = useState({});  
     const [Message_user , setMessage_user] = useState('');
     const [Message_pass , setMessage_pass] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [loggedInUsername, setLoggedInUsername] = useState('')
     console.log(Resultat);
 
     const onsubmit = () => {
@@ -40,6 +42,10 @@ export const LoginProvider = ({ children }) => {
         Message_pass,
         setMessage_pass,
         setMessage_user,
+        isLoggedIn,
+        setIsLoggedIn,
+        loggedInUsername,  
+        setLoggedInUsername  
         
       }}
     >

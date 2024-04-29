@@ -13,7 +13,8 @@ import ChauffeursInterface from './Components/Chauffeurs/ChauffeursInterface';
 import AjoutChauffeurInterface from './Components/Chauffeurs/AjoutChauffeurInterface';
 import EditChauffeur from './Components/Chauffeurs/EditChauffeur';
 import SchedularInterface from './Components/Schedular/SchedularInterface';
-
+import Acceuil from './Components/Acceuil/Acceuil';
+import Contact from './Components/Contact/Contact';
 
 const queryClient = new QueryClient();
 
@@ -23,7 +24,8 @@ function App() {
       <ChakraProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<LoginPage />} />  
+          <Route path="/" element={<Acceuil />} /> 
+            <Route path="/Loginpage" element={<LoginPage />} />  
             <Route path="/Signuppage" element={<SignUpPage />} />
             <Route path='/Home' element={<HomePage />} />
             <Route path='/income' element={<Income />} />
@@ -34,6 +36,7 @@ function App() {
             <Route path='/AjoutChauffeur' element={<AjoutChauffeurInterface />} /> 
             <Route path='/EditChauffeur/:id' element={<EditChauffeur />} />
             <Route path='/Calendrier' element={<SchedularInterface />} /> 
+            <Route path='/Contact' element={<Contact />} /> 
           </Routes>
         </Router>
       </ChakraProvider>

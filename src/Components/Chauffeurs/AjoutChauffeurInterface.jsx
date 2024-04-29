@@ -3,7 +3,7 @@ import { Flex, Text, Input, Alert, AlertIcon, Center,Button,ButtonGroup } from '
 import ChauffeurContext from './ChauffeurContext';
 import {createChauffeur} from '../../api/chauffeur_api'; 
 import { useMutation } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 
 function AjoutChauffeurInterface() {
   const { nom, setNom, salaire, setSalaire, startWork, setStartWork, endWork, setEndWork,  error,color,setColor,setError } = useContext(ChauffeurContext);
@@ -137,7 +137,10 @@ function AjoutChauffeurInterface() {
           )}
           <Center>
           <ButtonGroup variant='outline' spacing='6'>
-            <Button colorScheme='blue' onClick={handleSave}>Save</Button>
+            <Button colorScheme='blue' w='200px' onClick={handleSave}>Save</Button>
+            <Link to={'/chauffeurs'} >
+                <Button colorScheme='blue' w='200px' >Annuler</Button>
+              </Link>
           </ButtonGroup>
         </Center>
         </Flex>
