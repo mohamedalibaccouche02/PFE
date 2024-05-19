@@ -13,15 +13,14 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // Add urlencoded middleware
-
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Routes
 app.use('/users', userRoutes);
 app.use('/louages', louageRoutes);
 app.use('/chauffeurs', chauffeurRoutes);
-app.use('/passengers',passengerRoutes)
+app.use('/passengers', passengerRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -38,9 +37,9 @@ mongoose
   .then(() => {
     console.log('Connected to MongoDB');
     // Start the server after successful database connection
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => {
-      console.log(`Node API app is running on port ${PORT}`);
+    const port = process.env.PORT || 5000;
+    app.listen(port, '0.0.0.0', () => {
+      console.log(`Node API app is running on http://0.0.0.0:${port}`);
     });
   })
   .catch((error) => {

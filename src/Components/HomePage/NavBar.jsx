@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Box, Image, Flex, Divider, Icon, Text, Button } from '@chakra-ui/react';
 import { HiMiniUserCircle } from "react-icons/hi2";
 import { NavLink } from 'react-router-dom';
@@ -16,9 +16,19 @@ import {
 
 function NavBar() {
   const history = useNavigate();
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    // Retrieve username from localStorage
+    const storedUsername = localStorage.getItem('loggedInUsername');
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []); // Run once on component mount
 
   // Function to handle logout
   const handleLogout = () => {
+    localStorage.removeItem('loggedInUsername');
  
     history('/'); 
   };
@@ -85,7 +95,7 @@ function NavBar() {
         </Flex>
       </Box>
       <Flex alignItems='center' marginLeft='auto'>
-        <Text fontSize="md" color="#white">Dali</Text>
+        <Text fontSize="md" color="#white">{username}</Text>
         <Icon as={HiMiniUserCircle} boxSize={14} marginLeft="3" />
        
         <LogoutPopover onLogout={handleLogout} />

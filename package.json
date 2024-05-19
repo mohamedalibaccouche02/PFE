@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
+    "@chakra-ui/modal": "^2.3.1",
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
@@ -33,6 +34,7 @@
     "react-scripts": "5.0.1",
     "recharts": "^2.12.2",
     "styled-components": "^6.1.8",
+    "twilio": "^5.0.4",
     "victory": "^36.9.2",
     "web-vitals": "^2.1.4",
     "zod": "^3.22.4"

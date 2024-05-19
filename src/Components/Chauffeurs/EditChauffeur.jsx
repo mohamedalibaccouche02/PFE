@@ -13,6 +13,7 @@ function EditChauffeur() {
   const [endWorkEdited, setEndWorkEdited] = useState('');
   const [colorEdited, setColorEdited] = useState('');
   const [error, setError] = useState('');
+  const [motpasseEdited, setMotpasseEdited] = useState('');
   
   const { data, isLoading, isError } = useQuery('chauffeur', fetchAllChauffeurs);
 
@@ -28,6 +29,7 @@ function EditChauffeur() {
 
   const handleSaveEdited = async () => {
     const updatedChauffeur = {
+      motpasse: motpasseEdited,
       nom: nomEdited,
       salaire: salaireEdited,
       startWork: startWorkEdited,
@@ -35,7 +37,7 @@ function EditChauffeur() {
       color: colorEdited
     };
 
-    if (!nomEdited || !salaireEdited || !startWorkEdited || !endWorkEdited || !colorEdited) {
+    if (!nomEdited || !salaireEdited || !startWorkEdited || !endWorkEdited || !colorEdited || !motpasseEdited) {
       setError('All fields are required.');
     } else {
       setError('');
@@ -82,6 +84,14 @@ function EditChauffeur() {
           size='lg'
           value={salaireEdited}
           onChange={(e) => setSalaireEdited(e.target.value)}
+          mb={4}
+          color='black'
+        />
+        <Input
+          placeholder='Password'
+          size='lg'
+          value={motpasseEdited}
+          onChange={(e) => setMotpasseEdited(e.target.value)}
           mb={4}
           color='black'
         />

@@ -6,10 +6,12 @@ import { useMutation } from 'react-query';
 import { useNavigate,Link } from 'react-router-dom';
 
 function AjoutChauffeurInterface() {
-  const { nom, setNom, salaire, setSalaire, startWork, setStartWork, endWork, setEndWork,  error,color,setColor,setError } = useContext(ChauffeurContext);
+  const { nom, setNom, salaire, setSalaire, startWork, setStartWork, endWork, setEndWork,  error,color,setColor,setError ,motpasse,setMotpasse} = useContext(ChauffeurContext);
   const navigate = useNavigate();
   
-  
+  const handlechangeMotpasse = (e) => {
+    setMotpasse(e.target.value);
+  }
   const handlechangeNom = (e) => {
     setNom(e.target.value);
   };
@@ -32,9 +34,13 @@ function AjoutChauffeurInterface() {
 
   const createChauffeurMutation = useMutation(createChauffeur);
   const handleSave = async () => {
-    if (nom.length === 0 && salaire.length === 0 &&startWork.length===0 &&endWork.length===0 &&color.length===0) {
+    if (nom.length === 0 &&  salaire.length === 0 &&startWork.length===0 &&endWork.length===0 &&color.length===0 &&motpasse.length===0) {
       setError('Nom and Salaire are required.');
-    } else if (nom.length === 0) {
+    
+    }else if(motpasse.length===0){
+      setError('Password is required.');
+    }
+    else if (nom.length === 0) {
       setError('Nom is required.');
     } else if (salaire.length === 0) {
       setError('Salaire is required.');
@@ -47,6 +53,7 @@ function AjoutChauffeurInterface() {
     } else {
       const newChauffeur = {
         nom,
+        motpasse,
         salaire,
         startWork,
         endWork,
@@ -57,6 +64,7 @@ function AjoutChauffeurInterface() {
         const { data } = await createChauffeurMutation.mutateAsync(newChauffeur);
         setError('');
         setNom('');
+        setMotpasse('');
         setSalaire('');
         setStartWork('');
         setEndWork('');
@@ -94,6 +102,14 @@ function AjoutChauffeurInterface() {
             size='lg'
             value={nom}
             onChange={handlechangeNom}
+            mb={4}
+            color='black'
+          />
+          <Input
+            placeholder='Password'
+            size='lg'
+            value={motpasse}
+            onChange={handlechangeMotpasse}
             mb={4}
             color='black'
           />

@@ -5,6 +5,10 @@ const ChauffeurSchema = mongoose.Schema({
         type: String,
         required: [true, "Please enter a name"]
     },
+    motpasse: {
+        type: String,
+        required: [true, "Please enter a password"]
+    },
     salaire: {
         type: String,
         required: [true, "Please enter a salary"]

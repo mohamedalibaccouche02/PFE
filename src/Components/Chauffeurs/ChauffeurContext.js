@@ -23,6 +23,8 @@ export const ChauffeursProvider = ({ children }) => {
   const[color,setColor]=useState('');
   const [error, setError] = useState('');
   const [items, setItems] = useState(getChauffeursFromLocalStorage());
+  const [motpasse, setMotpasse] = useState('');
+  const [motpasse_edited, setMotpasse_Edited] = useState('');
 
   useEffect(() => {
     saveChauffeursToLocalStorage(items);
@@ -76,7 +78,11 @@ export const ChauffeursProvider = ({ children }) => {
         color,
         setColor,
         chauffeurId,
-        setChauffeurId
+        setChauffeurId,
+        motpasse,
+        setMotpasse,
+        motpasse_edited,
+        setMotpasse_Edited
       }}
     >
       {children}

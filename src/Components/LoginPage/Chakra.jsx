@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Flex, Box, Image ,Text , Button } from '@chakra-ui/react';
+import { Flex, Box, Image, Text, Button } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Login_Form_Chakra from './Login_Form_Chakra';
 import Username from './Username_chakra';
@@ -9,67 +9,66 @@ import { LoginContext } from './Login_SubmitContext';
 import { useQuery } from 'react-query';
 import { fetchAllUsers } from '../../api/user_api';
 
-function Chakra() { 
- const {username , password , setUsername , setPassword } = useContext(LoginContext) ; 
- const [isLoggedIn , setIsLoggedIn] = useState(false) ; 
- const [err , setErr] = useState('') ; 
- const[loggedInUsername , setLoggedInUsername] = useState('')
- const navigate = useNavigate() ; 
+function Chakra() {
+  const { username, password, setUsername, setPassword } = useContext(LoginContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [err, setErr] = useState('');
+  const navigate = useNavigate();
 
-console.log('aa:',username ,'bbbb:', password ,'ccc:', loggedInUsername) ; 
+  const { data } = useQuery('users', fetchAllUsers);
 
- const { data} = useQuery('users', fetchAllUsers);
- 
- const handleLogin = () => {
-   if (username.length === 0 || password.length === 0) {
-      setErr('There is an empty input') ; 
-   } else {
-     if (data) {
-       
-       data.forEach(item => {
-         if (item.username === username && item.password === password) {
-           setIsLoggedIn(true);
-           setUsername('') ; 
-           setPassword('') 
-           setLoggedInUsername(username);
-           navigate('/Home');
-            
-         }
-       });
-       if (!isLoggedIn) {
-         setErr('Wrong account') ;
-       }
-     }
-   }  
- }
+  const handleLogin = () => {
+    if (username.length === 0 || password.length === 0) {
+      setErr('There is an empty input');
+    } else {
+      if (data) {
+        let loggedInUser = null;
+        data.forEach(item => {
+          if (item.username === username && item.password === password) {
+            loggedInUser = username; // Store the username of the logged-in user
+            setIsLoggedIn(true);
+            setUsername('');
+            setPassword('');
+            navigate('/Home');
+          }
+        });
+        if (!loggedInUser) {
+          setErr('Wrong account');
+        } else {
+          // Store the username in localStorage
+          localStorage.setItem('loggedInUsername', loggedInUser);
+        }
+      }
+    }
+  };
 
   return (
     <Flex color='white' h='100vh'>
-      <Box flex='1' bg='RGBA(236,189,76,0.7)' roundedBottomRight={20} boxShadow={20}  > 
+      <Box flex='1' bg='RGBA(236,189,76,0.7)' roundedBottomRight={20} boxShadow={20}>
         <Login_Form_Chakra />
         <Username />
-        <PasswordInput /> 
-        
+        <PasswordInput />
+
         <Flex justify="center" mt={5}>
           <Button
             backgroundColor={'#052c51'}
             size='md'
-            height='48px' 
+            height='48px'
             width='300px'
             border='2px'
             borderColor='#052c51'
             rounded={20}
-            colorScheme="whiteAlpha" 
+            colorScheme="whiteAlpha"
             onClick={handleLogin}
           > Login </Button>
         </Flex>
-       
-        <Flex justify="center" mt={2}> 
+
+        <Flex justify="center" mt={2}>
           <Text color='red'>{err}</Text>
         </Flex>
       </Box>
-      <Box flex='1' bg='#ecbd4c' display='flex' alignItems='center' justifyContent='center' >
-        <Image src={Louage} alt='Louage bou blassa' maxH='100%'  />
+      <Box flex='1' bg='#ecbd4c' display='flex' alignItems='center' justifyContent='center'>
+        <Image src={Louage} alt='Louage bou blassa' maxH='100%' />
       </Box>
     </Flex>
   );
